@@ -1,4 +1,7 @@
 # A bunch of Docker containers to make your life eaiser ;)
+
+### Symfony 4.4 installed
+
 ### PHP dev environment with basic tools setup
 - PHP 7.3
 - Nginx
