@@ -1,0 +1,11 @@
+parameters:
+    git_dir: .
+    bin_dir: vendor/bin
+    tasks:
+        phpmd:
+            ruleset: [rulesets]
+        phpcs:
+            standard: [PSR2, PSR12]
+        phpstan:
+            level: 5
+        phpunit: ~

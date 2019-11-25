@@ -1,0 +1,42 @@
+version: '2'
+
+services:
+    web:
+        build: ./devops/nginx
+        container_name: ${COMPOSE_PROJECT_NAME}_web
+        ports:
+            - ${NGINX_PORT}:80
+        restart: always
+        volumes:
+            - ./volumes/nginx/logs:/var/log/nginx/
+        volumes_from:
+            - php
+        depends_on:
+            - php
+    db:
+        image: mysql:5.7
+        container_name: ${COMPOSE_PROJECT_NAME}_db
+        volumes:
+            - ./volumes/mysql/:/var/lib/mysql/
+        environment:
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+            MYSQL_DATABASE: ${MYSQL_DATABASE}
+            MYSQL_USER: ${MYSQL_USER}
+            MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+        ports:
+            - ${MYSQL_PORT}:3306
+    php:
+        build:
+            context: devops/php-fpm
+            args:
+                TIMEZONE: ${TIMEZONE}
+                USER_ID: ${USER_ID}
+                GROUP_ID: ${GROUP_ID}
+        container_name: ${COMPOSE_PROJECT_NAME}_php
+        volumes:
+            - ./:/var/www/html/
+            - ${HOME}/.composer/cache/:/.composer/cache/
+            - ${HOME}/.gitconfig:/home/www-data/.gitconfig
+            - ${HOME}/.ssh:/home/www-data/.ssh
+        depends_on:
+            - db
