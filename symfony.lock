@@ -93,8 +93,17 @@
     "egulias/email-validator": {
         "version": "2.1.11"
     },
+    "elasticsearch/elasticsearch": {
+        "version": "v6.7.2"
+    },
     "gitonomy/gitlib": {
         "version": "v1.1.0"
+    },
+    "guzzlehttp/ringphp": {
+        "version": "1.1.1"
+    },
+    "guzzlehttp/streams": {
+        "version": "3.0.0"
     },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
@@ -173,6 +182,12 @@
     },
     "psr/log": {
         "version": "1.1.2"
+    },
+    "react/promise": {
+        "version": "v2.7.1"
+    },
+    "ruflin/elastica": {
+        "version": "6.1.1"
     },
     "seld/jsonlint": {
         "version": "1.7.2"

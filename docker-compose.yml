@@ -40,3 +40,17 @@ services:
             - ${HOME}/.ssh:/home/www-data/.ssh
         depends_on:
             - db
+    elasticsearch:
+        image: docker.elastic.co/elasticsearch/elasticsearch:6.6.0
+        container_name: ${COMPOSE_PROJECT_NAME}_elasticsearch
+        environment:
+            discovery.type: single-node
+        ports:
+            - 9200:9200
+    kibana:
+        image: docker.elastic.co/kibana/kibana:6.6.0
+        container_name: ${COMPOSE_PROJECT_NAME}_kibana
+        ports:
+            - 5601:5601
+        depends_on:
+            - elasticsearch
