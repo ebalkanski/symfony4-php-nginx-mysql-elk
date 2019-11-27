@@ -43,6 +43,7 @@ services:
             - ${HOME}/.ssh:/home/www-data/.ssh
         depends_on:
             - db
+            - kibana
     elasticsearch:
         build:
             context: devops/elasticsearch
