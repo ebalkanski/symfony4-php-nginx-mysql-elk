@@ -55,7 +55,7 @@ services:
         environment:
             discovery.type: single-node
         ports:
-            - ${ELASTIC_SEARCH_PORT}:9200
+            - ${ELASTICSEARCH_PORT}:9200
     kibana:
         build:
             context: devops/kibana

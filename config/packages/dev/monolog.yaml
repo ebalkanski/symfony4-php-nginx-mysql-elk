@@ -25,4 +25,4 @@ monolog:
             index: monolog
             level: debug
             tags: monolog.logger
-            channels: ["!event"]
+            channels: ["!event", "!console"]
