@@ -1,6 +1,6 @@
 init:
 	mkdir -p ~/.composer/cache &&\
-	mkdir -p volumes/elasticsearch/data
+	mkdir -p volumes/elasticsearch/data &&\
 	docker-compose build --pull --no-cache &&\
 	docker-compose run --rm php composer install &&\
 	docker-compose down
