@@ -3,7 +3,7 @@ parameters:
     bin_dir: vendor/bin
     tasks:
         phpmd:
-            ruleset: [rulesets]
+            ruleset: [phpmd_rulesets]
         phpcs:
             standard: [PSR2, PSR12]
             encoding: UTF-8

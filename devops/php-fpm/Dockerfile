@@ -71,13 +71,13 @@ RUN ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime \
   && "date"
 
 # Copy php configuration
-COPY ./conf/php.ini /usr/local/etc/php/conf.d/custom-php.ini
+COPY ./config/php.ini /usr/local/etc/php/conf.d/custom-php.ini
 
 # Copy opcache configration
-COPY ./conf/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
+COPY ./config/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
 
 # Copy xdebug configration for remote debugging
-COPY ./conf/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
+COPY ./config/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
 
 # Composer
 RUN curl -sS https://getcomposer.org/installer | php -- \

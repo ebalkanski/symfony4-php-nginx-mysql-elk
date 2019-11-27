@@ -14,7 +14,10 @@ services:
         depends_on:
             - php
     db:
-        image: mysql:5.7
+        build:
+            context: devops/mysql
+            args:
+                MYSQL_VERSION: ${MYSQL_VERSION}
         container_name: ${COMPOSE_PROJECT_NAME}_db
         volumes:
             - ./volumes/mysql/:/var/lib/mysql/
@@ -41,16 +44,24 @@ services:
         depends_on:
             - db
     elasticsearch:
-        image: docker.elastic.co/elasticsearch/elasticsearch:6.6.0
+        build:
+            context: devops/elasticsearch
+            args:
+                ELK_VERSION: ${ELK_VERSION}
         container_name: ${COMPOSE_PROJECT_NAME}_elasticsearch
+        volumes:
+            - ./volumes/elasticsearch/data/:/usr/share/elasticsearch/data/
         environment:
             discovery.type: single-node
         ports:
-            - 9200:9200
+            - ${ELASTIC_SEARCH_PORT}:9200
     kibana:
-        image: docker.elastic.co/kibana/kibana:6.6.0
+        build:
+            context: devops/kibana
+            args:
+                ELK_VERSION: ${ELK_VERSION}
         container_name: ${COMPOSE_PROJECT_NAME}_kibana
         ports:
-            - 5601:5601
+            - ${KIBANA_PORT}:5601
         depends_on:
             - elasticsearch
