@@ -43,7 +43,7 @@ services:
             - ${HOME}/.ssh:/home/www-data/.ssh
         depends_on:
             - db
-            - kibana
+            - logstash
     elasticsearch:
         build:
             context: devops/elasticsearch
@@ -56,6 +56,14 @@ services:
             discovery.type: single-node
         ports:
             - ${ELASTICSEARCH_PORT}:9200
+    logstash:
+        build:
+            context: devops/logstash
+            args:
+                ELK_VERSION: ${ELK_VERSION}
+        container_name: ${COMPOSE_PROJECT_NAME}_logstash
+        depends_on:
+            - elasticsearch
     kibana:
         build:
             context: devops/kibana
@@ -65,4 +73,4 @@ services:
         ports:
             - ${KIBANA_PORT}:5601
         depends_on:
-            - elasticsearch
+            - logstash
