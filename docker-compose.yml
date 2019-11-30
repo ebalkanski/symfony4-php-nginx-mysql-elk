@@ -20,7 +20,7 @@ services:
                 MYSQL_VERSION: ${MYSQL_VERSION}
         container_name: ${COMPOSE_PROJECT_NAME}_db
         volumes:
-            - ./volumes/mysql/:/var/lib/mysql/
+            - db:/var/lib/mysql/
         environment:
             MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
             MYSQL_DATABASE: ${MYSQL_DATABASE}
@@ -38,27 +38,26 @@ services:
         container_name: ${COMPOSE_PROJECT_NAME}_php
         volumes:
             - ./:/var/www/html/
-            - ${HOME}/.composer/cache/:/.composer/cache/
             - ${HOME}/.gitconfig:/home/www-data/.gitconfig
             - ${HOME}/.ssh:/home/www-data/.ssh
+            - composer:/.composer/cache/
         depends_on:
             - db
-            - logstash
     elasticsearch:
         build:
-            context: devops/elasticsearch
+            context: devops/elk/elasticsearch
             args:
                 ELK_VERSION: ${ELK_VERSION}
         container_name: ${COMPOSE_PROJECT_NAME}_elasticsearch
         volumes:
-            - ./volumes/elasticsearch/data/:/usr/share/elasticsearch/data/
+            - elasticsearch:/usr/share/elasticsearch/data/
         environment:
             discovery.type: single-node
         ports:
             - ${ELASTICSEARCH_PORT}:9200
     logstash:
         build:
-            context: devops/logstash
+            context: devops/elk/logstash
             args:
                 ELK_VERSION: ${ELK_VERSION}
         container_name: ${COMPOSE_PROJECT_NAME}_logstash
@@ -66,7 +65,7 @@ services:
             - elasticsearch
     kibana:
         build:
-            context: devops/kibana
+            context: devops/elk/kibana
             args:
                 ELK_VERSION: ${ELK_VERSION}
         container_name: ${COMPOSE_PROJECT_NAME}_kibana
@@ -74,3 +73,8 @@ services:
             - ${KIBANA_PORT}:5601
         depends_on:
             - logstash
+
+volumes:
+    db:
+    elasticsearch:
+    composer:
