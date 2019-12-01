@@ -1,4 +1,5 @@
-### Symfony4 dev environment with basic tools setup
+# Symfony4 dev environment
+### Setup
 - PHP 7.3
 - Nginx
 - MySQL 5.7
