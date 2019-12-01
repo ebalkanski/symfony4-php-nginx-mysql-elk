@@ -13,4 +13,5 @@ parameters:
         phpstan:
             level: 5
             autoload_file: vendor/bin/.phpunit/phpunit-7.5-0/vendor/autoload.php
+            configuration: phpstan.neon
         phpunitbridge: ~
