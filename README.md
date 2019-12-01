@@ -5,7 +5,7 @@
 - Composer
 - Git
 - PhpUnit
-- ELK stack
+- ELK 7.4.2
 
 ### Additional goodies, i.e. PHP code quality tools.
 The major tool which is used is GrumPHP https://github.com/phpro/grumphp and it is configured to run the following tools:
@@ -29,9 +29,8 @@ The upper tools are fired in a pre-commit git hook and are configured by the fol
 - Configuration is in .env and there you can tweak some Docker params, database setup and symfony stuff.
 - In case your uid and gid are not 1000 but say 1001, you must change the USER_ID and GROUP_ID vars in .env-dist before launching setup. Type the `id` command in your terminal in order to find out who are you.
 - Your images will be prefixed with COMPOSE_PROJECT_NAME env var, e.g. `symfony4_web` for the Nginx images. You can change this as per your preference.
-- Nginx error logs are accessible in ./volumes/nginx/logs
-- Nginx access logs are accessible in Kibana
-- Symfony dev logs are accessible in Kibana
+- Nginx logs are accessible in Kibana.
+- Symfony dev logs are accessible in Kibana.
 - MySQL data is persisted via a Docker volume.
 - Composer cache is persisted via a Docker volume.
 - ElasticSearch data is persisted via a Docker volume.
