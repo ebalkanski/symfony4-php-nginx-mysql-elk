@@ -8,8 +8,8 @@
 - PhpUnit
 - ELK 7.4.2
 
-### Additional goodies, i.e. PHP code quality tools.
-The major tool which is used is GrumPHP https://github.com/phpro/grumphp and it is configured to run the following tools:
+### Additional goodies, i.e. PHP code quality tools
+The major tool which is used is GrumPHP https://github.com/phpro/grumphp and is configured to run the following tools:
 - phpmd - https://github.com/phpro/grumphp/blob/master/doc/tasks/phpmd.md
 - phpcs - https://github.com/phpro/grumphp/blob/master/doc/tasks/phpcs.md 
 - phpstan - https://github.com/phpro/grumphp/blob/master/doc/tasks/phpstan.md
@@ -28,13 +28,13 @@ The upper tools are fired in a pre-commit git hook and are configured by the fol
 
 ### Configuration
 - Configuration is in .env and there you can tweak some Docker params, database setup and symfony stuff.
-- In case your uid and gid are not 1000 but say 1001, you must change the USER_ID and GROUP_ID vars in .env-dist before launching setup. Type the `id` command in your terminal in order to find out who are you.
-- Your images will be prefixed with COMPOSE_PROJECT_NAME env var, e.g. `symfony4_web` for the Nginx images. You can change this as per your preference.
+- In case your uid and gid are not 1000 but say 1001, you must change the USER_ID and GROUP_ID vars in .env-dist before launching setup. Type the `id` command in your terminal in order to find out who you are.
+- Your images will be prefixed with COMPOSE_PROJECT_NAME env var, e.g. `symfony4_web` for the Nginx image. You can change this as per your preference.
 - Nginx logs are accessible in Kibana.
 - Symfony dev logs are accessible in Kibana.
 - MySQL data is persisted via a Docker volume.
 - Composer cache is persisted via a Docker volume.
-- ElasticSearch data is persisted via a Docker volume.
+- Elasticsearch data is persisted via a Docker volume.
 - You can write code by loading your project in your IDE, but in order to use Composer or to take advantage of the code quality tools you must work in the PHP container.
 
 ### Start the Docker ecosystem for a first time
@@ -47,11 +47,11 @@ The upper tools are fired in a pre-commit git hook and are configured by the fol
     - installs Composer packages
 - `make up` - start the whole ecosystem
 - `docker-composer ps` - verify all containers are up and running
-- Depending on your hardware setup the ELK stack could need some time to start properly.
-    - Open `symfony4.local:9200` in your browser and you should see the ElasticSearch JSON config data.
+- Depending on your hardware setup the ELK stack may need some time to start properly.
+    - Open `symfony4.local:9200` in your browser and you should see the Elasticsearch JSON config data.
     - Open `symfony4.local:81` in your browser and you should see Kibana.
     - If these two are not loaded yet and you are curious about details, you can monitor the containers' logs with Docker commands:
-        - `docker logs symfony4_elasticsearch`
+        - `docker logs symfony4_Elasticsearch`
         - `docker logs symfony4_logstash`
         - `docker logs symfony4_kibana`
 - Open `symfony4.local` in your browser and you should see Symfony default page.
