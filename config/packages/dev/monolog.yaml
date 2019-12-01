@@ -25,4 +25,4 @@ monolog:
             index: monolog
             level: debug
             tags: monolog.logger
-            channels: ["!event", "!console"]
+            channels: ["!event", "!doctrine", "!console"]

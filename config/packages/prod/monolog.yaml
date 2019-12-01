@@ -21,3 +21,12 @@ monolog:
             handler: deprecation
             max_level: info
             channels: ["php"]
+        elasticsearch:
+            type: elasticsearch
+            elasticsearch:
+                host: elasticsearch
+                port: 9200
+            index: monolog
+            level: debug
+            tags: monolog.logger
+            channels: ["!event", "!doctrine", "!console"]

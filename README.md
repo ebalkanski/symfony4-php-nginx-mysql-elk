@@ -31,7 +31,7 @@ The upper tools are fired in a pre-commit git hook and are configured by the fol
 - In case your uid and gid are not 1000 but say 1001, you must change the USER_ID and GROUP_ID vars in .env-dist before launching setup. Type the `id` command in your terminal in order to find out who you are.
 - Your images will be prefixed with COMPOSE_PROJECT_NAME env var, e.g. `symfony4_web` for the Nginx image. You can change this as per your preference.
 - Nginx logs are accessible in Kibana.
-- Symfony dev logs are accessible in Kibana.
+- Symfony logs are accessible in Kibana.
 - MySQL data is persisted via a Docker volume.
 - Composer cache is persisted via a Docker volume.
 - Elasticsearch data is persisted via a Docker volume.
