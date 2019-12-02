@@ -27,8 +27,8 @@ The upper tools are fired in a pre-commit git hook and are configured by the fol
 - You must be able to execute Makefiles via 'make' command. Otherwise you must take a look at ./Makefile and execute the commands by hand. You may try to install make via `sudo apt-get install make` if you don't have it.
 
 ### Configuration
-- Configuration is in .env and there you can tweak some Docker params, database setup and symfony stuff.
-- In case your uid and gid are not 1000 but say 1001, you must change the USER_ID and GROUP_ID vars in .env-dist before launching setup. Type the `id` command in your terminal in order to find out who you are.
+- Configuration is in .env file and there you can tweak some Docker params, database setup and symfony stuff.
+- In case your uid and gid are not 1000 but say 1001, you must change the USER_ID and GROUP_ID vars in .env file before launching setup. Type the `id` command in your terminal in order to find out who you are.
 - Your images will be prefixed with COMPOSE_PROJECT_NAME env var, e.g. `symfony4_web` for the Nginx image. You can change this as per your preference.
 - Nginx logs are accessible in Kibana.
 - Symfony logs are accessible in Kibana.
