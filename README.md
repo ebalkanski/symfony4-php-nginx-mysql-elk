@@ -40,7 +40,7 @@ The upper tools are fired in a pre-commit git hook and are configured by the fol
 ### Start the Docker ecosystem for a first time
 - `mkdir my_project` - create a new project dir
 - `cd my_project` - get into it
-- `git clone git@github.com:ebalkanski/symfony4-php-nginx-mysql-elk.git .` - clone code from repo
+- `git clone https://github.com/ebalkanski/symfony4-php-nginx-mysql-elk.git .` - clone code from repo
 - `rm -rf .git` - cleanup git data. Now you can init a new fresh repo if you want and work with it.
 - `make init`
     - builds Docker images and volumes
