@@ -46,12 +46,12 @@ The upper tools are fired in a pre-commit git hook and are configured by the fol
     - builds Docker images and volumes
     - installs Composer packages
 - `make up` - start the whole ecosystem
-- `docker-composer ps` - verify all containers are up and running
+- `docker-compose ps` - verify all containers are up and running
 - Depending on your hardware setup the ELK stack may need some time to start properly.
     - Open `symfony4.local:9200` in your browser and you should see the Elasticsearch JSON config data.
     - Open `symfony4.local:81` in your browser and you should see Kibana.
     - If these two are not loaded yet and you are curious about details, you can monitor the containers' logs with Docker commands:
-        - `docker logs symfony4_Elasticsearch`
+        - `docker logs symfony4_elasticsearch`
         - `docker logs symfony4_logstash`
         - `docker logs symfony4_kibana`
 - Open `symfony4.local` in your browser and you should see Symfony default page.
