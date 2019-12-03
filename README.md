@@ -59,7 +59,7 @@ The upper tools are fired in a pre-commit git hook and are configured by the fol
     - `monolog` (use the datetime filter on second step of wizard)
     - `nginx` (use the @timestamp filter on second step of wizard)
 - Open `http://symfony4.local:81/app/kibana#/discover` and you should see the Symfony logs there. You can also switch to nginx logs.
-- `docker-compose exec php /bin/bash` - enter the php container.
+- `make php` - enter the php container.
 - Happy Coding!
 
 ### Useful commands
