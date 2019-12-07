@@ -34,7 +34,6 @@ RUN apt-get update \
 RUN docker-php-ext-configure bcmath --enable-bcmath \
   && docker-php-ext-configure pcntl --enable-pcntl \
   && docker-php-ext-configure pdo_mysql --with-pdo-mysql \
-  && docker-php-ext-configure pdo_pgsql --with-pgsql \
   && docker-php-ext-configure mbstring --enable-mbstring \
   && docker-php-ext-configure soap --enable-soap \
   && docker-php-ext-install \
@@ -44,12 +43,10 @@ RUN docker-php-ext-configure bcmath --enable-bcmath \
     mysqli \
     pcntl \
     pdo_mysql \
-    pdo_pgsql \
     soap \
     sockets \
     zip \
   && docker-php-ext-configure gd \
-    --enable-gd-native-ttf \
     --with-jpeg-dir=/usr/lib \
     --with-freetype-dir=/usr/include/freetype2 \
   && docker-php-ext-install gd \
