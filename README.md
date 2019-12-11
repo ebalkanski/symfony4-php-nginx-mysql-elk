@@ -3,6 +3,7 @@
 - PHP 7.3
 - Nginx
 - MySQL 5.7
+- Redis
 - Composer
 - Git
 - PhpUnit
@@ -20,7 +21,10 @@ The upper tools are fired in a pre-commit git hook and are configured by the fol
 - phpmd_rulesets.xml
 
 ### Prerequisites
-- You must have Git installed.
+- You must have the following tools installed:
+    - Git
+    - Docker - https://docs.docker.com/install/linux/docker-ce/ubuntu/
+    - Docker Compose - https://docs.docker.com/compose/install/
 - You must add the proper virtual host record to your /etc/hosts file, i.e.
     - 127.0.0.1	symfony4.local
     - In case you want a different name, you must specify it in ./devops/nginx/conf.d/server.conf
@@ -32,6 +36,7 @@ The upper tools are fired in a pre-commit git hook and are configured by the fol
 - Your images will be prefixed with COMPOSE_PROJECT_NAME env var, e.g. `symfony4_web` for the Nginx image. You can change this as per your preference.
 - Nginx logs are accessible in Kibana.
 - Symfony logs are accessible in Kibana.
+- Symfony PHP session is stored in Redis.
 - MySQL data is persisted via a Docker volume.
 - Composer cache is persisted via a Docker volume.
 - Elasticsearch data is persisted via a Docker volume.
@@ -48,13 +53,13 @@ The upper tools are fired in a pre-commit git hook and are configured by the fol
 - `make up` - start the whole ecosystem
 - `docker-compose ps` - verify all containers are up and running
 - Depending on your hardware setup the ELK stack may need some time to start properly.
-    - Open `symfony4.local:9200` in your browser and you should see the Elasticsearch JSON config data.
-    - Open `symfony4.local:81` in your browser and you should see Kibana.
+    - Open `http://symfony4.local:9200` in your browser and you should see the Elasticsearch JSON config data.
+    - Open `http://symfony4.local:81` in your browser and you should see Kibana.
     - If these two are not loaded yet and you are curious about details, you can monitor the containers' logs with Docker commands:
         - `docker logs symfony4_elasticsearch`
         - `docker logs symfony4_logstash`
         - `docker logs symfony4_kibana`
-- Open `symfony4.local` in your browser and you should see Symfony default page.
+- Open `http://symfony4.local` in your browser and you should see Symfony default page.
 - Open `http://symfony4.local:81/app/kibana#/management/kibana/index_patterns?_g=()` and create two index patterns:
     - `monolog` (use the datetime filter on second step of wizard)
     - `nginx` (use the @timestamp filter on second step of wizard)
