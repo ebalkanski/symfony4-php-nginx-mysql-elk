@@ -65,6 +65,7 @@ The upper tools are fired in a pre-commit git hook and are configured by the fol
     - `nginx` (use the @timestamp filter on second step of wizard)
 - Open `http://symfony4.local:81/app/kibana#/discover` and you should see the Symfony logs there. You can also switch to nginx logs.
 - `make php` - enter the php container.
+    - The first time you commit, you will get a warning from PHPStan: "Class PHPUnit\Framework\TestCase not found and could not be autoloaded". Just ignore it and commit again, it will work.
 - Happy Coding!
 
 ### Useful commands
