@@ -27,8 +27,7 @@ The upper tools are fired in a pre-commit git hook and are configured by the fol
     - Docker Compose - https://docs.docker.com/compose/install/
 - You must add the proper virtual host record to your /etc/hosts file, i.e.
     - 127.0.0.1	symfony4.local
-    - In case you want a different name, you must specify it in ./devops/nginx/conf.d/server.conf
-- You must be able to execute Makefiles via 'make' command. Otherwise you must take a look at ./Makefile and execute the commands by hand. You may try to install make via `sudo apt-get install make` if you don't have it.
+    - In case you want a different name, you must specify it in ./devops/nginx/dev/config/server.conf
 
 ### Configuration
 - Configuration is in .env file and there you can tweak some Docker params, database setup and symfony stuff.
@@ -47,10 +46,10 @@ The upper tools are fired in a pre-commit git hook and are configured by the fol
 - `cd my_project` - get into it
 - `git clone https://github.com/ebalkanski/symfony4-php-nginx-mysql-elk.git .` - clone code from repo
 - `rm -rf .git` - cleanup git data. Now you can init a new fresh repo if you want and work with it.
-- `make init`
-    - builds Docker images and volumes
-    - installs Composer packages
-- `make up` - start the whole ecosystem
+- Now you would want to run `id` command and set USER_ID and GROUP_ID env vars in .env file as per your needs.
+- `docker-compose build` - build Docker images and volumes
+- `docker-compose run --rm php-dev composer install` - install Composer packages
+- `docker-compose up -d` - start the whole ecosystem
 - `docker-compose ps` - verify all containers are up and running
 - Depending on your hardware setup the ELK stack may need some time to start properly.
     - Open `http://symfony4.local:9200` in your browser and you should see the Elasticsearch JSON config data.
@@ -64,12 +63,10 @@ The upper tools are fired in a pre-commit git hook and are configured by the fol
     - `monolog` (use the datetime filter on second step of wizard)
     - `nginx` (use the @timestamp filter on second step of wizard)
 - Open `http://symfony4.local:81/app/kibana#/discover` and you should see the Symfony logs there. You can also switch to nginx logs.
-- `make php` - enter the php container.
+- `docker-compose exec php-dev /bin/bash` - enter the php container.
     - The first time you commit, you will get a warning from PHPStan: "Class PHPUnit\Framework\TestCase not found and could not be autoloaded". Just ignore it and commit again, it will work.
 - Happy Coding!
 
 ### Useful commands
-- `make up` - start all containers
-- `make php` - hook into the PHP container
-- `make down` - stop the running containers
-- `make build` - rebuild images
+- `docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' container` - gets container's IP
+- `docker kill -s HUP container` - can be used to reload Nginx configuration dynamically

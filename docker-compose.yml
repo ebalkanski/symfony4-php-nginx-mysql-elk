@@ -1,24 +1,23 @@
 version: '2'
 
 services:
-    web:
-        build: ./devops/nginx
-        container_name: ${COMPOSE_PROJECT_NAME}_web
+    web-dev:
+        image: web-dev:${APP_VERSION}
+        build: ./devops/nginx/dev
         ports:
             - ${NGINX_HOST_PORT}:80
-        restart: always
-#        volumes:
-#            - ./volumes/nginx/logs:/var/log/nginx/
+        volumes:
+            - ./volumes/nginx/logs:/var/log/nginx/
         volumes_from:
-            - php
+            - php-dev:ro
         depends_on:
-            - php
-    db:
+            - php-dev
+    db-dev:
+        image: db-dev:${APP_VERSION}
         build:
-            context: devops/mysql
+            context: devops/mysql/dev
             args:
                 MYSQL_VERSION: ${MYSQL_VERSION}
-        container_name: ${COMPOSE_PROJECT_NAME}_db
         volumes:
             - db:/var/lib/mysql/
         environment:
@@ -28,27 +27,32 @@ services:
             MYSQL_PASSWORD: ${MYSQL_PASSWORD}
         ports:
             - ${MYSQL_HOST_PORT}:3306
-    php:
+    php-base:
+        image: php7-base:${APP_VERSION}
         build:
-            context: devops/php-fpm
+            context: devops/php-fpm/base
+    php-dev:
+        image: php7-dev:${APP_VERSION}
+        build:
+            context: devops/php-fpm/dev
             args:
-                TIMEZONE: ${TIMEZONE}
+                BASE_IMAGE: php7-base:${APP_VERSION}
                 USER_ID: ${USER_ID}
                 GROUP_ID: ${GROUP_ID}
-        container_name: ${COMPOSE_PROJECT_NAME}_php
         volumes:
-            - ./:/var/www/html/
+            - ./:/var/www/app/
             - ${HOME}/.gitconfig:/home/www-data/.gitconfig
+            - ${HOME}/.git-credentials:/home/www-data/.git-credentials
             - ${HOME}/.ssh:/home/www-data/.ssh
-            - composer:/.composer/cache/
+            - composer_cache:/.composer/cache/
         depends_on:
-            - db
+            - db-dev
     redis:
+        image: redis-dev:${APP_VERSION}
         build:
-            context: devops/redis
+            context: devops/redis/dev
             args:
                 REDIS_VERSION: ${REDIS_VERSION}
-        container_name: ${COMPOSE_PROJECT_NAME}_redis
         ports:
             - ${REDIS_HOST_PORT}:6379
     elasticsearch:
@@ -56,7 +60,6 @@ services:
             context: devops/elk/elasticsearch
             args:
                 ELK_VERSION: ${ELK_VERSION}
-        container_name: ${COMPOSE_PROJECT_NAME}_elasticsearch
         volumes:
             - elasticsearch:/usr/share/elasticsearch/data/
         environment:
@@ -68,7 +71,6 @@ services:
             context: devops/elk/logstash
             args:
                 ELK_VERSION: ${ELK_VERSION}
-        container_name: ${COMPOSE_PROJECT_NAME}_logstash
         depends_on:
             - elasticsearch
     kibana:
@@ -76,7 +78,6 @@ services:
             context: devops/elk/kibana
             args:
                 ELK_VERSION: ${ELK_VERSION}
-        container_name: ${COMPOSE_PROJECT_NAME}_kibana
         ports:
             - ${KIBANA_HOST_PORT}:5601
         depends_on:
@@ -85,4 +86,4 @@ services:
 volumes:
     db:
     elasticsearch:
-    composer:
+    composer_cache:
