@@ -21,11 +21,9 @@ RUN apt-get update \
     unzip \
   && rm -rf /var/lib/apt/lists/*
 
-RUN docker-php-ext-configure bcmath --enable-bcmath \
-  && docker-php-ext-configure pcntl --enable-pcntl \
-  && docker-php-ext-configure pdo_mysql --with-pdo-mysql \
-  && docker-php-ext-configure mbstring --enable-mbstring \
-  && docker-php-ext-configure soap --enable-soap \
+RUN docker-php-ext-configure gd \
+    --with-jpeg-dir=/usr/lib \
+    --with-freetype-dir=/usr/include/freetype2 \
   && docker-php-ext-install \
     bcmath \
     intl \
@@ -36,16 +34,10 @@ RUN docker-php-ext-configure bcmath --enable-bcmath \
     soap \
     sockets \
     zip \
-  && docker-php-ext-configure gd \
-    --with-jpeg-dir=/usr/lib \
-    --with-freetype-dir=/usr/include/freetype2 \
-  && docker-php-ext-install gd \
-  && docker-php-ext-install opcache \
-  && docker-php-ext-enable opcache \
+    opcache \
+    gd \
   && pecl install amqp \
   && docker-php-ext-enable amqp \
-  && docker-php-ext-configure intl \
-  && docker-php-ext-install intl \
   && pecl install redis \
   && docker-php-ext-enable redis
 
