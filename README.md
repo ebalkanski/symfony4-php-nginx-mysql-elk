@@ -54,10 +54,8 @@ The upper tools are fired in a pre-commit git hook and are configured by the fol
 - Depending on your hardware setup the ELK stack may need some time to start properly.
     - Open `http://symfony4.local:9200` in your browser and you should see the Elasticsearch JSON config data.
     - Open `http://symfony4.local:81` in your browser and you should see Kibana.
-    - If these two are not loaded yet and you are curious about details, you can monitor the containers' logs with Docker commands:
-        - `docker logs symfony4_elasticsearch_1`
-        - `docker logs symfony4_logstash_1`
-        - `docker logs symfony4_kibana_1`
+    - If these two are not loaded yet and you are curious about details, you can monitor the ELK containers' logs with Docker command and see when they are ready:
+        - `docker logs container`
 - Open `http://symfony4.local` in your browser and you should see Symfony default page.
 - Open `http://symfony4.local:81/app/kibana#/management/kibana/index_patterns?_g=()` and create two index patterns:
     - `monolog` (use the datetime filter on second step of wizard)
